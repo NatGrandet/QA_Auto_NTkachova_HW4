@@ -4,8 +4,9 @@ import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.WebDriverWait;
+import utils.ConfigProperties;
+
 
 public class LoginPage {
     private WebDriver driver;
@@ -28,12 +29,18 @@ public class LoginPage {
     @FindBy(id = "login")
     WebElement logInButton;
 
-    public void loginToJira(String login, String password) {
-        WebElement enterUsername = (new WebDriverWait(driver, 10)) .until(ExpectedConditions.elementToBeClickable(loginField));
-        enterUsername.sendKeys(login);
-        passwordField.sendKeys(password);
-        logInButton.click();
+
+    public void enterLogin(){
+
+        loginField.sendKeys(ConfigProperties.getTestProperty("login.username"));
     }
 
+    public void enterPassword(){
+        passwordField.sendKeys(ConfigProperties.getTestProperty("login.password"));
+    }
+
+    public void clickLogin(){
+        logInButton.click();
+    }
 
 }
